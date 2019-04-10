@@ -7,8 +7,8 @@ class Genre(models.Model):
 
 
 class Book(models.Model):
-    author = models.ManyToManyField('Author', null=True)
-    genre = models.ManyToManyField('Genre', null=True)
+    author = models.ManyToManyField('users.Author', null=True)
+    genre = models.ManyToManyField('books.Genre', null=True)
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
     text = models.TextField()
