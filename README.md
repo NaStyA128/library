@@ -6,7 +6,7 @@ ___
 
 To start work:
 ```bash
-git pull 
+git clone https://github.com/NaStyA128/library.git
 virtualenv -p python3 venv
 . venv/bin/activate
 pip install -r -requirements.txt
