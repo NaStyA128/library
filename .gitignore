@@ -1,0 +1,7 @@
+venv
+.env
+env
+.idea/
+.cache/
+*.py[co]
+tmp/
