@@ -12,4 +12,4 @@ class Book(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True)
     text = models.TextField()
-    year = models.PositiveIntegerField(blank=True)
+    year = models.DateField(blank=True)
