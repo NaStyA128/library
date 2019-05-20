@@ -5,3 +5,4 @@ env
 .cache/
 *.py[co]
 tmp/
+elasticsearch-7.0.1/
