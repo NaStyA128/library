@@ -1,9 +1,18 @@
-from .api import es_library_api
+import requests
+
+ES_BASE_API_URL = 'http://localhost:9200'
 
 
-def create_user(user_data):
-    return es_library_api.users.post(username='some_username')
+def get_user(user_id: str):
+    user_url = f'/user/_doc/{user_id}'
+    return requests.get(f'{ES_BASE_API_URL}{user_url}')
 
 
-def get_user(user_id):
-    return es_library_api.users.get(detail_id=user_id)
+def create_or_update_user(user_id: str, user_data: dict):
+    user_url = f'/user/_doc/{user_id}'
+    return requests.put(f'{ES_BASE_API_URL}{user_url}', json=user_data)
+
+
+def delete_user(user_id: str):
+    user_url = f'/user/_doc/{user_id}'
+    return requests.delete(f'{ES_BASE_API_URL}{user_url}')

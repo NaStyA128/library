@@ -2,6 +2,8 @@ import requests
 
 from . import settings
 
+# todo Will be later, need to think
+
 
 class SingletoneSession(requests.Session):
 
