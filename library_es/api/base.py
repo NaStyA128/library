@@ -18,7 +18,7 @@ class BaseIndex:
         self.session = SingletonSession()
 
     def get(self, *args, **kwargs):
-        return self.request('get')
+        return self.request('get', **kwargs)
 
     def post(self, *args, **kwargs):
         return self.request('post', **kwargs)
@@ -33,7 +33,8 @@ class BaseIndex:
         detail_id = kwargs.pop(self.detail_field, None)
         print(detail_id)
         print(self.get_url(detail_id))
-        return getattr(self.session, method)(self.get_url(detail_id), json=kwargs)
+        print(kwargs)
+        return getattr(self.session, method)(self.get_url(detail_id), json=kwargs, data=kwargs)
 
     def get_url(self, detail_id=None):
         return f'{self.base_api_url}{self.url}{detail_id}' if detail_id else f'{self.base_api_url}{self.url}'
