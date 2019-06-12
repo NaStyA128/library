@@ -10,7 +10,7 @@ def get_data(file_name: str):
 
 
 class UserParser:
-    data_file = '/home/user/learning/library/library_es/data_files/users.json'
+    data_file = '/home/user/Projects/learning/library/data_files/users.json'
 
     def parse(self):
         data = get_data(self.data_file)
@@ -18,5 +18,26 @@ class UserParser:
             es_library_api.users.put(**item)
 
 
+class PersonParser:
+    data_file = '/home/user/Projects/learning/library/data_files/persons.json'
+
+    def parse(self):
+        data = get_data(self.data_file)
+        for item in data:
+            es_library_api.persons.put(**item)
+
+
+class AuthorParser:
+    data_file = '/home/user/Projects/learning/library/data_files/authors.json'
+
+    def parse(self):
+        data = get_data(self.data_file)
+        for item in data:
+            es_library_api.authors.put(**item)
+
+
 if __name__ == '__main__':
-    UserParser().parse()
+    # UserParser().parse()
+    # PersonParser().parse()
+    # AuthorParser().parse()
+    pass
