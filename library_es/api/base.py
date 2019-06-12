@@ -17,6 +17,9 @@ class BaseIndex:
     def __init__(self):
         self.session = SingletonSession()
 
+    def search(self, *args, **kwargs):
+        return self.request('get', search=True, **kwargs)
+
     def get(self, *args, **kwargs):
         return self.request('get', **kwargs)
 
@@ -30,26 +33,30 @@ class BaseIndex:
         return self.request('delete', **kwargs)
 
     def request(self, method, *args, **kwargs):
-        detail_id = kwargs.pop(self.detail_field, None)
-        print(detail_id)
-        print(self.get_url(detail_id))
-        print(kwargs)
-        return getattr(self.session, method)(self.get_url(detail_id), json=kwargs, data=kwargs)
+        is_search = kwargs.pop('search')
+        if is_search:
+            return getattr(self.session, method)(self.get_search_url(),json=kwargs)
 
-    def get_url(self, detail_id=None):
-        return f'{self.base_api_url}{self.url}{detail_id}' if detail_id else f'{self.base_api_url}{self.url}'
+        detail_id = kwargs.pop(self.detail_field, None)
+        return getattr(self.session, method)(self.get_doc_url(detail_id), json=kwargs)
+
+    def get_doc_url(self, detail_id=None):
+        return f'{self.base_api_url}{self.url}_doc/{detail_id}' if detail_id else f'{self.base_api_url}{self.url}_doc/'
+
+    def get_search_url(self):
+        return f'{self.base_api_url}{self.url}_search'
 
 
 class UserIndex(BaseIndex):
-    url = '/user/_doc/'
+    url = '/user/'
 
 
 class PersonIndex(BaseIndex):
-    url = '/person/_doc/'
+    url = '/person/'
 
 
 class AuthorIndex(BaseIndex):
-    url = '/author/_doc/'
+    url = '/author/'
 
 
 class ESLibraryAPI:
